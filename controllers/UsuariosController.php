@@ -20,8 +20,8 @@ class UsuariosController
         if ($usuario) {
             $_SESSION['usuario_id'] = $usuario['idusuario'];
             $_SESSION['username'] = $usuario['user_usuario'];
-            header('Location: /pruebaTecnica/tareas/vista');      
-      exit;
+            header('Location: /pruebaTecnica/dashboard/index');
+            exit;
         } else {
             $_SESSION['error'] = "Usuario o contraseña incorrectos.";
             header('Location: /pruebaTecnica/usuarios/login');

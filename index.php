@@ -8,6 +8,10 @@ $controllerName = !empty($segments[0]) ? ucfirst($segments[0]) .'Controller' : '
 $actionName = $segments[1] ?? 'index';
 $params = array_slice($segments, 2);
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $actionName .= '_post'; 
+}
+
 require_once 'config/database.php';
 require_once 'models/Proyecto.php';
 require_once 'models/Usuario.php';
