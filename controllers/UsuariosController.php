@@ -9,7 +9,7 @@ class UsuariosController
         require_once 'views/login.php';
     }
 
-    public function autenticar()
+    public function autenticar_post()
     {
         $username = $_POST['username'] ?? '';
         $password = $_POST['password'] ?? '';
@@ -29,7 +29,7 @@ class UsuariosController
         }
     }
 
-    public function logout()
+    public function logout_post()
     {
         session_destroy();
         header('Location: /pruebaTecnica/usuarios/login');

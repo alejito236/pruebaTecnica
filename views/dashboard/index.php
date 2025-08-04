@@ -30,4 +30,10 @@
     <p>Generar reportes personalizados</p>
     <span class="link-text">Ir a reportes</span>
 </a>
+
+</div>
+<div class="logout-container">
+    <form action="/pruebaTecnica/usuarios/logout" method="post">
+        <button type="submit" class="btn-logout">Cerrar sesión</button>
+    </form>
 </div>
