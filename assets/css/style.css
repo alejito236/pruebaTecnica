@@ -205,3 +205,13 @@ body {
     background-color: #218838;
     transform: scale(1.05);
 }
+.btn-edit {
+    padding: 5px 10px;
+    background-color: #ffaa00;
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+}
+.btn-edit:hover {
+    background-color: #cc8800;
+}

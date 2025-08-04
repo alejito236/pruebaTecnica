@@ -38,5 +38,32 @@ class Tarea{
 
     return $stmt->execute();
 }
+
+
+    public function obtenerTareaPorId($id)
+    {
+
+        $sql = "SELECT * FROM tareas WHERE idtareas  ='$id';";
+        $stmt = $this->conn->prepare($sql);
+        $stmt-> execute();
+        return  $stmt->fetchAll(PDO::FETCH_ASSOC); 
+    }
+
+public function actualizarTarea($id, $nombre, $descripcion)
+{
+    try {
+        $sql = "UPDATE tareas SET nombre_tarea = :nombre, descripicion_tarea = :descripcion WHERE idtareas = :id";
+        $stmtRelacion = $this->conn->prepare($sql);
+        $stmtRelacion->bindParam(':nombre', $nombre);
+        $stmtRelacion->bindParam(':descripcion', $descripcion);
+        $stmtRelacion->bindParam(':id', $id);
+        $stmtRelacion->execute();
+        return true;
+    } catch (Exception $e) {
+        echo "Error al actualizar tarea: " . $e->getMessage();
+        return false;
+    }
+}
+
 }
 ?>

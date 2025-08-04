@@ -69,4 +69,44 @@ public function guardar_post()
     }
 }
 
+
+public function editar($id)
+{   
+    $tareaModel = new Tarea();
+    $resultado = $tareaModel->obtenerTareaPorId($id);
+    if (!$resultado) {
+        $_SESSION['error'] = "Tarea no encontrada.";
+        header('Location: /pruebaTecnica/dashboard/index');
+        exit;
+    }
+    require_once 'views/tareas/editar.php';
+}
+
+    public function actualizar_post()
+{
+    session_start();
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $id = $_POST['id'] ?? null;
+        $nombre = $_POST['nombre'] ?? '';
+        $descripcion = $_POST['descripcion'] ?? '';
+       
+        if (!$id) {
+            $_SESSION['error'] = "ID de proyecto no válido.";
+            header('Location: /pruebaTecnica/dashboard/index');
+            exit;
+        }
+
+    $tareaModel = new Tarea();
+        if ($tareaModel->actualizarTarea($id, $nombre, $descripcion)) {
+            $_SESSION['mensaje'] = "Proyecto actualizado con éxito.";
+        } else {
+            $_SESSION['error'] = "Error al actualizar el proyecto.";
+        }
+
+        header("Location: /pruebaTecnica/tareas/editar/$id");
+        exit;
+    }
+}
+
 }

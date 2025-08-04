@@ -27,6 +27,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                 <th>Nombre</th>
                                 <th>Descripción</th>
                                 <th>tarifa</th>
+                                <th>accion</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -35,7 +36,10 @@ if (!isset($_SESSION['usuario_id'])) {
                                     <td><?php echo htmlspecialchars($proyecto['idProyectos']); ?></td>
                                     <td><?php echo htmlspecialchars($proyecto['nombre_proyecto']); ?></td>
                                     <td><?php echo htmlspecialchars($proyecto['descripcion_proyecto']); ?></td>
-                                    <td>112123</td>
+                                    <td><?php echo htmlspecialchars($proyecto['tarifa_proyecto']); ?></td>
+                                    <td>
+                                        <a href="/pruebaTecnica/proyectos/editar/<?php echo $proyecto['idProyectos']; ?>" class="btn-edit">Editar</a>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

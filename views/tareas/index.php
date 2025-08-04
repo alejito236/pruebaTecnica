@@ -28,6 +28,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                 <th>Descripción</th>
                                 <th>Proyecto</th>
                                 <th>fecha inicio</th>
+                                <th>Accion</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -38,6 +39,9 @@ if (!isset($_SESSION['usuario_id'])) {
                                     <td><?= htmlspecialchars($tarea['descripcion']) ?></td>
                                     <td><?= htmlspecialchars($tarea['nombre_proyecto']) ?></td>
                                     <td><?= htmlspecialchars($tarea['fecha_inicio']) ?></td>
+                                    <td>
+                                        <a href="/pruebaTecnica/tareas/editar/<?php echo $tarea['idtareas']; ?>" class="btn-edit">Editar</a>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

@@ -2,8 +2,8 @@
 if (!isset($_SESSION)) session_start();
 $mensaje = $_SESSION['mensaje'] ?? '';
 $error = $_SESSION['error'] ?? '';
-$usuarioId = $_SESSION['usuario_id'];
 unset($_SESSION['mensaje'], $_SESSION['error']);
+
 if (!isset($_SESSION['usuario_id'])) {
     header('Location: /pruebaTecnica/usuarios/login');
     exit;
@@ -13,9 +13,10 @@ if (!isset($_SESSION['usuario_id'])) {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Crear Proyecto</title>
+    <title>Editar Proyecto</title>
     <link rel="stylesheet" href="/pruebaTecnica/assets/css/style.css">
     <style>
+        /* (Usamos los mismos estilos de "Crear Proyecto") */
         .form-container {
             max-width: 600px;
             margin: 60px auto;
@@ -91,30 +92,32 @@ if (!isset($_SESSION['usuario_id'])) {
 <body>
 
 <div class="form-container">
-    <h3>Crear Proyecto</h3>
-    <form action="/pruebaTecnica/proyectos/crear" method="post">
-            <div class="form-group">
+    <h3>Editar Proyecto</h3>
+
+    <form action="/pruebaTecnica/proyectos/actualizar" method="post">
+        <input type="hidden" name="id" value="<?php echo htmlspecialchars($resultado[0]['idProyectos']); ?>">
+
+        <div class="form-group">
             <label for="nombre">Nombre del Proyecto:</label>
-            <input type="text" name="nombre" id="nombre" required>
+            <input type="text" name="nombre" id="nombre" value="<?php echo htmlspecialchars($resultado[0]['nombre_proyecto']); ?>" required>
         </div>
 
         <div class="form-group">
             <label for="descripcion">Descripción:</label>
-            <textarea name="descripcion" id="descripcion" rows="4" required></textarea>
+            <textarea name="descripcion" id="descripcion" rows="4" required><?php echo htmlspecialchars($resultado[0]['descripcion_proyecto']); ?></textarea>
         </div>
 
-         <div class="form-group">
+        <div class="form-group">
             <label for="tarifa">Tarifa:</label>
-            <textarea name="tarifa" id="tarifa" rows="4" required></textarea>
+            <textarea name="tarifa" id="tarifa" rows="4" required><?php echo htmlspecialchars($resultado[0]['tarifa_proyecto']); ?></textarea>
         </div>
 
-        <button type="submit" class="btn-submit">Crear Proyecto</button>
+        <button type="submit" class="btn-submit">Actualizar Proyecto</button>
     </form>
 
     <a href="/pruebaTecnica/dashboard/index" class="btn-back">← Volver al Dashboard</a>
 </div>
 
-</body>
 <?php if ($mensaje): ?>
 <script>
     alert("<?php echo $mensaje; ?>");
@@ -127,4 +130,5 @@ if (!isset($_SESSION['usuario_id'])) {
 </script>
 <?php endif; ?>
 
+</body>
 </html>
