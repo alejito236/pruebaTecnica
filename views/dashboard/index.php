@@ -25,9 +25,9 @@
         <span class="link-text">Ver tareas</span>
     </a>
 
-    <a class="card reportes" href="#">
-        <h3>Zona Reportes</h3>
-        <p>Generar reportes personalizados</p>
-        <span class="link-text">(Próximamente)</span>
-    </a>
+   <a class="card reportes" href="/pruebaTecnica/reportes/index">
+    <h3>Zona Reportes</h3>
+    <p>Generar reportes personalizados</p>
+    <span class="link-text">Ir a reportes</span>
+</a>
 </div>

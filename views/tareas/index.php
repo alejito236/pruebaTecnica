@@ -29,6 +29,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                 <th>Proyecto</th>
                                 <th>fecha inicio</th>
                                 <th>Accion</th>
+                                <th>Finalizar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -42,6 +43,17 @@ if (!isset($_SESSION['usuario_id'])) {
                                     <td>
                                         <a href="/pruebaTecnica/tareas/editar/<?php echo $tarea['idtareas']; ?>" class="btn-edit">Editar</a>
                                     </td>
+                                     <td>
+                                        <?php if ($tarea['estado'] != 1): ?>
+                                            <form action="/pruebaTecnica/tareas/finalizar" method="post" style="display:inline;">
+                                                <input type="hidden" name="tarea_id" value="<?= $tarea['idtareas'] ?>">
+                                                <button type="submit" class="btn-finalizar">Finalizar</button>
+                                            </form>
+                                        <?php else: ?>
+                                            <span class="estado-finalizado">Finalizada</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

@@ -215,3 +215,23 @@ body {
 .btn-edit:hover {
     background-color: #cc8800;
 }
+
+btn-finalizar {
+    background-color: #28a745;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.btn-finalizar:hover {
+    background-color: #218838;
+}
+
+.estado-finalizado {
+    color: #6c757d;
+    font-style: italic;
+    margin-left: 10px;
+}

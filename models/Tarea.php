@@ -12,14 +12,14 @@ class Tarea{
      public function contarPorUsuario($usuarioId)
     {
         $db = Database::connect();
-        $stmt = $db->prepare("SELECT count(*)  AS total FROM prueba_practica.tareas p INNER JOIN proyectos_por_usuario pu on p.id_proyecto_usuario = pu.idproyectos_por_usuario inner join  usuarios u on pu.usuario_id= u.idusuario where u.idusuario = :usuario_id;");
+        $stmt = $db->prepare("SELECT count(*)  AS total FROM prueba_practica.tareas p INNER JOIN proyectos_por_usuario pu on p.id_proyecto_usuario = pu.idproyectos_por_usuario inner join  usuarios u on pu.usuario_id= u.idusuario where u.idusuario = :usuario_id and p.estado !=1;");
         $stmt->bindParam(':usuario_id', $usuarioId, PDO::PARAM_INT);
         $stmt->execute();
         $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
         return $resultado['total'] ?? 0;
     }
     public function obtenerTareasPorUsuario($usuario_id){
-        $sql = " SELECT t.idtareas,t.nombre_tarea AS nombre_tarea, t.descripicion_tarea AS descripcion, t.fecha_inicio as fecha_inicio, p.nombre_proyecto as nombre_proyecto FROM tareas t INNER JOIN proyectos_por_usuario pu ON t.id_proyecto_usuario = pu.idproyectos_por_usuario INNER JOIN usuarios u ON pu.usuario_id = u.idusuario INNER JOIN proyectos p ON pu.proyecto_id = p.idProyectos where u.idusuario ='$usuario_id';";
+        $sql = " SELECT t.estado, t.idtareas,t.nombre_tarea AS nombre_tarea, t.descripicion_tarea AS descripcion, t.fecha_inicio as fecha_inicio, p.nombre_proyecto as nombre_proyecto FROM tareas t INNER JOIN proyectos_por_usuario pu ON t.id_proyecto_usuario = pu.idproyectos_por_usuario INNER JOIN usuarios u ON pu.usuario_id = u.idusuario INNER JOIN proyectos p ON pu.proyecto_id = p.idProyectos where u.idusuario ='$usuario_id' and t.estado != 1;";
         $stmt = $this->conn->prepare($sql);
         $stmt-> execute();
         return  $stmt->fetchAll(PDO::FETCH_ASSOC); 
@@ -64,6 +64,22 @@ public function actualizarTarea($id, $nombre, $descripcion)
         return false;
     }
 }
-
+public function finalizarTarea($id)
+{
+    try {
+        $sql = "UPDATE tareas SET estado = 1, fecha_fin = NOW() WHERE idtareas = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        return $stmt->execute();
+    } catch (Exception $e) {
+        echo "Error al finalizar tarea: " . $e->getMessage();
+        return false;
+    }
+}
+public function obtenerTodas()
+{
+    $stmt = $this->conn->query("SELECT * FROM tareas t INNER JOIN proyectos_por_usuario pu ON t.id_proyecto_usuario = pu.idproyectos_por_usuario INNER JOIN usuarios u ON pu.usuario_id = u.idusuario INNER JOIN proyectos p ON pu.proyecto_id = p.idProyectos");
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }
 ?>

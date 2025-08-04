@@ -109,4 +109,29 @@ public function editar($id)
     }
 }
 
+public function finalizar_post()
+{
+    session_start();
+    
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $tareaId = $_POST['tarea_id'] ?? null;
+      
+        if ($tareaId) {
+            $tareaModel = new Tarea();
+
+            if ($tareaModel->finalizarTarea($tareaId)) {
+                $_SESSION['mensaje'] = "Tarea finalizada con éxito.";
+            } else {
+                $_SESSION['error'] = "No se pudo finalizar la tarea.";
+            }
+        } else {
+            $_SESSION['error'] = "ID de tarea no proporcionado.";
+        }
+
+        header('Location: /pruebaTecnica/dashboard/index');
+        exit;
+    }
+}
+
+
 }

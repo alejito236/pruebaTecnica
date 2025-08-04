@@ -86,7 +86,11 @@ public function actualizarProyecto($id, $nombre, $descripcion, $tarifa)
         return false;
     }
 }
-
+public function obtenerTodos()
+{
+    $stmt = $this->conn->query("SELECT * FROM proyectos");
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
 }
 
